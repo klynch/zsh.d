@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+export GREP_OPTIONS='--color=auto'
+
+#TODO is this right? also colors in 60-prompt seem to be cluttering things.
+#http://mattbsoftware.blogspot.com/2009/04/colerful-ls-dircolors-on-mac.html
+
+# colour ls
+if [[ $OSTYPE = (darwin*|solaris*) ]]; then
+	alias ls='ls -G'
+else
+	eval `dircolors`
+	alias ls='ls --color=auto'
+fi

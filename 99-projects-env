@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+function source-aniketos-env () {
+    source ${HOME}/Projects/Aniketos/git/aniketos-bin/aniketos-env.sh
+}

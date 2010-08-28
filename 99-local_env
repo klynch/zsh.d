@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+
+path=(${HOME}/.local/bin(N) $path)
+manpath=(${HOME}/.local/man(N) $manpath)
+infopath=(${HOME}/.local/info(N) $infopath)
+pkg_config_path=(${HOME}/.local/lib/pkgconfig(N) $pkg_config_path)

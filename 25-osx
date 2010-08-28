@@ -1,0 +1,71 @@
+#!/usr/bin/env zsh
+
+#skip this file if we are not 'Darwin'. Can also consult $OSTYPE
+if [[ $(uname) != 'Darwin' ]]; then
+	return
+fi
+
+#TODO find a better spot for this
+alias ldd='otool -L'
+
+#Adds the X-Code Developer tools to the path
+path=(/Developer/usr/bin(N) $path)
+manpath=(/Developer/usr/share/man(N) $manpath)
+
+#MacPorts selects
+#python_select python26
+#gcc_select mp-gcc45
+
+#MacPorts
+path=(/opt/local/bin(N) $path)
+manpath=(/opt/local/man(N) $manpath)
+infopath=(/opt/local/share/info(N) $infopath)
+pkg_config_path=(/opt/local/lib/pkgconfig(N) $pkg_config_path)
+
+#MATLAB
+path=(${MATLAB_APP:=/Applications/MATLAB_R2009a.app}/bin(N) $path)
+
+#OCTAVE
+path=(${OCTAVE_APP:=/Applications/Octave.app}/Contents/Resources/bin(N) $path)
+infopath=(${OCTAVE_APP}/Resources/info(N) $infopath)
+manpath=(${OCTAVE_APP}/Resources/man(N) $manpath)
+
+#PYTHON
+#Can we get PYTHON_FRAMEWORK from python-config?
+path=(${PYTHON_FRAMEWORK:=/opt/local/Library/Frameworks/Python.framework/Versions/Current}/bin(N) $path)
+#TODO check if PYTHON_FRAMEWORK is null, then (/usr/bin/python-config)
+#TODO set to /System/Library/Frameworks/Python.framework/Versions/Current
+manpath=(${PYTHON_FRAMEWORK}/share/man(N) $manpath)
+#setenv PYTHON_ROOT /opt/local
+#${PYTHON_ROOT}/lib/python${PYTHON_VERSION}/site-packages:/usr/local/lib/python${PYTHON_VERSION}/site-packages
+
+typeset -x JAVA_HOME=${JAVA_HOME:=$(/usr/libexec/java_home)}
+
+#EMACS_APP=/Applications/MacPorts/Emacs.app
+path=(${EMACS_APP:=/Applications/MacPorts/Emacs.app}/Contents/MacOS/bin(N) $path)
+infopath=(${EMACS_APP}/Contents/Resources/info(N) $infopath)
+typeset -x EMACS=${EMACS:=$EMACS_APP/Contents/MacOS/$(basename -s .app $EMACS_APP)}
+typeset -Ux emacspath=path
+
+## # Display files in Quick Look
+## function ql () {
+## 	(qlmanage -p “$@” > /dev/null 2>&1 &
+## 	local ql_pid=$!
+## 	read -sn 1
+## 	kill ${ql_pid}) > /dev/null 2>&1
+## }
+
+## # Display any filetype as plain text
+## function qlt () {
+## 	(qlmanage -p -c public.plain-text “$@” > /dev/null 2>&1 &
+## 	local ql_pid=$!
+## 	read -sn 1
+## 	kill ${ql_pid}) > /dev/null 2>&1
+## }
+
+
+## For $1.app files, the actual executable is
+##  typically the file $1.app/Contents/MacOS/$1
+## function app_exe () {
+## 	$1/Contents/MacOS/$(basename -s .app $1)
+## }
